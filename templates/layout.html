@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-         <title>Job board HTML-5 Template </title>
+        <title>Job board HTML-5 Template </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
 		<!-- CSS here -->
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+            <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css">
             <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
             <link rel="stylesheet" href="assets/css/flaticon.css">
             <link rel="stylesheet" href="assets/css/price_rangs.css">
@@ -21,7 +21,20 @@
             <link rel="stylesheet" href="assets/css/themify-icons.css">
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
-            <link rel="stylesheet" href="assets/css/style.css">
+            <link rel="stylesheet" href="assets/css/style.css"> -->
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='owl.carousel.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flaticon.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='price_rangs.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slicknav.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='animate.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='magnific-popup.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fontawesome-all.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='themify-icons.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slick.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nice-select.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
    </head>
 
    <body>
@@ -31,7 +44,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/jobify.png" alt="">
+                    <img src="{{ url_for('static', filename='/assets/img/logo/jobify.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -46,7 +59,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/jobify2.png" alt=""></a>
+                                <a href="home.html"><img src="{{ url_for('static', filename='assets/img/logo/jobify2.png') }}" alt=""></a>
                             </div>  
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -55,7 +68,7 @@
                                 <div class="main-menu">
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="home.html">Home</a></li>
                                             <li><a href="job_details.html">Saved Jobs</a></li>
                                             <li><a href="contact.html">Contact</a></li>
                                             <li><a href="about.html">About</a></li>
@@ -79,50 +92,7 @@
        </div>
         <!-- Header End -->
     </header>
-    <main>
-
-        <!-- slider Area Start-->
-        <div class="slider-area ">
-            <!-- Mobile Menu -->
-            <div class="slider-active">
-                <div class="single-slider slider-height d-flex align-items-center" data-background="assets/img/hero/lemson.png">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-9 col-md-10">
-                                <div class="hero__caption">
-                                    <h1>Find the job you want in the fields you love</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Search Box -->
-                        <div class="row">
-                            <div class="col-xl-8">
-                                <!-- form -->
-                                <form action="#" class="search-box">
-                                    <div class="input-form">
-                                        <input type={job_fields} placeholder='Type job field(s) seperated by ","'>
-                                    </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="select" id="select1">
-                                                <option value="">Location BD</option>
-                                                <option value="">Location PK</option>
-                                                <option value="">Location US</option>
-                                                <option value="">Location UK</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="search-form">
-                                        <a href="#">Find jobs</a>
-                                    </div>	
-                                </form>	
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    {% block content %}{% endblock content %}
     <footer>
         <!-- Footer Start-->
         <div class="footer-area footer-bg footer-padding">
@@ -188,7 +158,7 @@
                                          onblur="this.placeholder = ' Email Address '">
                                          <div class="form-icon">
                                              <button type="submit" name="submit" id="newsletter-submit"
-                                             class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt=""></button>
+                                             class="email_icon newsletter-submit button-contactForm"><img src="{{ url_for('static', filename='assets/img/icon/form.png') }}" alt=""></button>
                                          </div>
                                          <div class="mt-10 info"></div>
                                      </form>
@@ -203,7 +173,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                         <!-- logo -->
                         <div class="footer-logo mb-20">
-                        <a href="index.html"><img src="assets/img/logo/jobify2.png" alt=""></a>
+                        <a href="home.html"><img src="{{ url_for('static', filename='assets/img/logo/jobify2.png') }}" alt=""></a>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
@@ -256,41 +226,37 @@
     </footer>
 
   <!-- JS here -->
-	
+
 		<!-- All JS Custom Plugins Link Here here -->
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
+        <script src="{{ url_for('static', filename='assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.slicknav.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/slick.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/price_rangs.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/wow.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/animated.headline.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.magnific-popup.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.scrollUp.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.sticky.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/contact.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.form.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.validate.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/mail-script.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.ajaxchimp.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/plugins.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-        <script src="./assets/js/price_rangs.js"></script>
-        
-		<!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-		<script src="./assets/js/animated.headline.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
-
-		<!-- Scrollup, nice-select, sticky -->
-        <script src="./assets/js/jquery.scrollUp.min.js"></script>
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-		<script src="./assets/js/jquery.sticky.js"></script>
-        
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-        
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-        
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.woff2') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-solid-900.woff2') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.woff') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-solid-900.woff') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-solid-900.ttf') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.ttf') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.woff2') }}"></script>
+        <!-- importing images -->
     </body>
 </html>

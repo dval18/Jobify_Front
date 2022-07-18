@@ -7,8 +7,20 @@ import pprint
 import sqlalchemy as db
 import pdb
 from sqlalchemy.types import String
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegistrationForm
+from flask_behind_proxy import FlaskBehindProxy
+from flask_sqlalchemy import SQLAlchemy
 
-# interchange use of API Keys to limit searches to not get 100
+app = Flask(__name__)
+proxied = FlaskBehindProxy(app)
+@app.route("/")
+def homepage():
+    return render_template('home.html')
+if __name__ == '__main__':
+    app.run(debug=True, host="0.0.0.0")
+
+'''# interchange use of API Keys to limit searches to not get 100
 API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
             '9e8e77e8075bf5f1bfbbef8848ba3b735d1cf01e0490877307eded9945e41777')
 
@@ -106,4 +118,4 @@ if __name__ == '__main__':
     user_name = None
     while not user_check(user_name):
         user_name = input("Please type your firstname_lastname: ").lower().strip()
-    program_driver(user_name)
+    program_driver(user_name)'''
