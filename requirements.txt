@@ -36,3 +36,4 @@ Werkzeug==2.0.1
 wsproto==1.0.0
 WTForms==2.3.3
 pycodestyle
+
