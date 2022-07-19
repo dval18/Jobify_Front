@@ -26,12 +26,8 @@ packaging==21.0
 pandas==1.1.5
 python-dateutil==2.8.1
 requests==2.18.4
-scipy==1.5.4
-SecretStorage==2.3.1
-selenium==3.141.0
 simple-websocket==0.2.0
 six==1.11.0
-SpeechRecognition==3.8.1
 SQLAlchemy==1.4.19
 ssh-import-id==5.7
 toml==0.10.2
