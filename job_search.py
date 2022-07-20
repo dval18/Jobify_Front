@@ -1,4 +1,5 @@
 # start with the imports
+from sqlalchemy import exc
 import pandas as pd
 import random
 import requests
@@ -58,9 +59,9 @@ def register_form():
             print(user)
             db.session.add(user)
             db.session.commit()
-        except Exception as e:
-            flash(e)
-            print('hello world')
+        except exc.SQLAlchemyError as e:
+            error = str(e.__dict__['orig'])
+            return error
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('homepage'))
     return render_template('register.html', title='Register', form=form)
