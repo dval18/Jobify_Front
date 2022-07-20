@@ -24,7 +24,8 @@ class User(db.Model):
         username = db.Column(db.String(20), unique=True, nullable=False)
         password = db.Column(db.String(60), nullable=False)
   except Exception as e:
-        print(e)
+        print('hi')
+        # render_template()
   def __repr__(self):
     return f"User('{self.username}')"
 
@@ -52,12 +53,16 @@ def register_form():
     print(form.validate())
     if form.validate_on_submit() and request.method == 'POST':
         print('hello', form)
-        user = User(username=form.username.data, password=form.password.data)
-        print(user)
-        db.session.add(user)
-        db.session.commit()
+        try:
+            user = User(username=form.username.data, password=form.password.data)
+            print(user)
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            flash(e)
+            print('hello world')
         flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('/'))
+        return redirect(url_for('homepage'))
     return render_template('register.html', title='Register', form=form)
 
 
