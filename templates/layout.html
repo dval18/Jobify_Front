@@ -93,6 +93,15 @@
        </div>
         <!-- Header End -->
     </header>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
     {% block content %}{% endblock content %}
     <footer>
         <!-- Footer Start-->
@@ -147,7 +156,7 @@
                             <div class="footer-tittle">
                                 <h4>Newsletter</h4>
                                 <div class="footer-pera footer-pera2">
-                                 <p>Heaven fruitful doesn't over lesser in days. Appear creeping.</p>
+                                 <p>Be a part of Jobify's news!</p>
                              </div>
                              <!-- Form -->
                              <div class="footer-form" >
