@@ -4,19 +4,70 @@ import random
 import requests
 import json
 import pprint
-import sqlalchemy as db
 import pdb
 from sqlalchemy.types import String
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, request, render_template, url_for, flash, redirect
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 proxied = FlaskBehindProxy(app)
+
+app.config['SECRET_KEY'] = 'f8ab5567ef84a9ee5c1e3d86bb8b9ef9'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///jobify.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+  try:
+        id = db.Column(db.Integer, primary_key=True)
+        username = db.Column(db.String(20), unique=True, nullable=False)
+        password = db.Column(db.String(60), nullable=False)
+  except Exception as e:
+        print('hi')
+        # render_template()
+  def __repr__(self):
+    return f"User('{self.username}')"
+
 @app.route("/")
 def homepage():
     return render_template('home.html')
+
+@app.route("/about")
+def about_page():
+    return render_template('about.html')
+
+@app.route("/saved-jobs")
+def saved_jobs_page():
+    return render_template('saved-jobs.html')
+
+@app.route("/contact")
+def contact_page():
+    return render_template('contact.html')
+
+@app.route('/register', methods=('GET', 'POST'))
+def register_form():
+    form = RegistrationForm()
+    print('isaac')
+    print(form.username)
+    print(form.validate())
+    if form.validate_on_submit() and request.method == 'POST':
+        print('hello', form)
+        try:
+            user = User(username=form.username.data, password=form.password.data)
+            print(user)
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            flash(e)
+            print('hello world')
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('homepage'))
+    return render_template('register.html', title='Register', form=form)
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
 
