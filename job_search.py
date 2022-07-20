@@ -23,6 +23,12 @@ app.config['SECRET_KEY'] = 'f8ab5567ef84a9ee5c1e3d86bb8b9ef9'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///jobify.db'
 db = SQLAlchemy(app)
 
+# '''# interchange use of API Keys to limit searches to not get 100
+API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
+            '9e8e77e8075bf5f1bfbbef8848ba3b735d1cf01e0490877307eded9945e41777')
+
+key_index = random.randint(0, 1)
+
 class User(db.Model):
   try:
         id = db.Column(db.Integer, primary_key=True)
@@ -60,6 +66,22 @@ def log_the_user_in(username):
 @app.route("/")
 def homepage():
     return render_template('home.html')
+
+@app.route("/job_search", methods=('GET', 'POST'))
+def job_search():
+    if request.method == 'POST':
+        job_fields = request.form['fields']
+        job_location = request.form['location']
+        #parse info from form into api to get request
+        r = requests.get(f'https://serpapi.com/search.json?engine=google_jobs&q={job_fields}&location={job_location}&api_key={API_KEYS[key_index]}')
+        data = r.json()['jobs_results']
+        return render_template('jobs_list.html', data = data)
+    return render_template('job_search.html')
+
+@app.route("/jobs_list")
+def jobs_list():
+    return render_template('jobs_list.html')
+
 
 @app.route("/about")
 def about_page():
