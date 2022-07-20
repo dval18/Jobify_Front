@@ -128,6 +128,7 @@ def login():
             return log_the_user_in(request.form['username'])
         else:
             error = 'Invalid username/password'
+            flash(error,"error")
 
     return render_template('login.html', error=error)
 

@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html>
-    </head>
-    <body>
-        <div>
+{% extends "layout.html" %}
+{% block content %}
+        <div class="content-section form-group">
                 <form name="login-form"  action="/login" onsubmit="return validateForm()" target="_self" method="POST"  >
                     <h2>Login:</h2>
-                    {% if error %}
-                      <p>{{ error }}</p>
-                    {% endif %}
-                    <input type ="text" name ="username" placeholder="Username"><br>
-                    <input type="password" name="password" placeholder="Password"><br>
-                    <input type="submit" value="Submit"><br>
+                        <div class="invalid-feedback">
+                            {% if error %}
+                            <p>{{ error }}</p>
+                            {% endif %}
+                        </div>
+                    <input class="form-control form-control-lg is-invalid" type ="text" name ="username" placeholder="Username"><br>
+                    <input class="form-control form-control-lg is-invalid" type="password" name="password" placeholder="Password"><br>
+                    <input class="btn btn-outline-info" type="submit" value="Submit"><br>
                 </form>
         </div>
-    </body>
-</html>
+{% endblock content %}
