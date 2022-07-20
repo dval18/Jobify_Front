@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    {%for job in data %}
+            <h5>{{job['title']}}</h5>
+            <h5>{{job['company_name']}}</h5>
+            <h5>{{job['location']}}</h5>
+            <h5>{{job['description']}}</h5>
+
+    {%else%}
+    <h5> No jobs to display</h5>
+        
+
+    {%endfor%}
+
+    
+
+{%endblock%}
