@@ -17,23 +17,8 @@ proxied = FlaskBehindProxy(app)
 @app.route("/")
 def homepage():
     return render_template('home.html')
-
-@app.route("/about")
-def about_page():
-    return render_template('about.html')
-
-@app.route("/saved-jobs")
-def saved_jobs_page():
-    return render_template('saved-jobs.html')
-
-@app.route("/contact")
-def contact_page():
-    return render_template('contact.html')
-
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
-
-
 
 '''# interchange use of API Keys to limit searches to not get 100
 API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
