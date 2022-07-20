@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    </head>
+    <body>
+        <div>
+                <form name="login-form"  action="/login" onsubmit="return validateForm()" target="_self" method="POST"  >
+                    <h2>Login:</h2>
+                    {% if error %}
+                      <p>{{ error }}</p>
+                    {% endif %}
+                    <input type ="text" name ="username" placeholder="Username"><br>
+                    <input type="password" name="password" placeholder="Password"><br>
+                    <input type="submit" value="Submit"><br>
+                </form>
+        </div>
+    </body>
+</html>

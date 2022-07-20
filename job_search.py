@@ -6,11 +6,15 @@ import requests
 import json
 import pprint
 import pdb
+import sqlite3
 from sqlalchemy.types import String
-from flask import Flask, request, render_template, url_for, flash, redirect
+from flask import Flask, request, render_template, url_for, flash, redirect, g
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
+
+DATABASE ='./jobify.db'
+
 
 app = Flask(__name__)
 proxied = FlaskBehindProxy(app)
@@ -35,6 +39,29 @@ class User(db.Model):
         # render_template()
   def __repr__(self):
     return f"User('{self.username}')"
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
+
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
+
+def valid_login(username, password):
+    user = query_db('select * from User where username = ? and password = ?', [username, password], one=True)
+    if user is None:
+        return False
+    else:
+        return True
+
+
+def log_the_user_in(username):
+    return render_template(('home.html'), username=username)
 
 @app.route("/")
 def homepage():
@@ -83,12 +110,26 @@ def register_form():
             db.session.commit()
         except exc.SQLAlchemyError as e:
             error = str(e.__dict__['orig'])
-            return error
+            if 'UNIQUE' in error:
+                flash('Unique Error: Username already taken. Please Try again with a Different Username', 'error')
+            else:
+                flash('Error: Try Again', 'error')
+            return redirect(url_for('register_form'))
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('homepage'))
     return render_template('register.html', title='Register', form=form)
 
 
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'], request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+
+    return render_template('login.html', error=error)
 
 
 if __name__ == '__main__':
