@@ -61,7 +61,7 @@ def valid_login(username, password):
 
 
 def log_the_user_in(username):
-    return render_template(('home.html'), username=username)
+    return render_template(('logged-in-home.html'), username=username)
 
 @app.route("/")
 def homepage():
@@ -127,10 +127,11 @@ def login():
         if valid_login(request.form['username'], request.form['password']):
             return log_the_user_in(request.form['username'])
         else:
-            error = 'Invalid username/password'
+            error = ' '
             flash(error,"error")
-
     return render_template('login.html', error=error)
+
+    
 
 
 if __name__ == '__main__':
