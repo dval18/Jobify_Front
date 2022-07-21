@@ -10,7 +10,7 @@ query = engine.execute('SELECT * FROM user;').fetchall()
 
 
 print(query)
-# print(engine.table_names())
+print(engine.table_names())
 # query = engine.execute('.tables;').fetchall()
 #id_list = engine.execute(f"SELECT job_id FROM jobs WHERE user_id='joshua_feliciano';").fetchall()
 #id_list = [id[0] for id in id_list]

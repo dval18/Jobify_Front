@@ -98,6 +98,7 @@ def save_job():
         company_name = request.json.get('company_name')
         job_location = request.json.get('location')
         job_description = request.json.get('description')
+        
         saved_job = SavedJob(job_title=job_title,company_name=company_name, location=job_location, description=job_description)
         db.session.add(saved_job)
         db.session.commit()
