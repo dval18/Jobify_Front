@@ -80,12 +80,11 @@ def log_the_user_in(username):
 
 class SavedJob(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    #username = db.Column(db.Integer, db.ForeignKey('User.username'))
+    username = db.Column(db.String())
     job_title=db.Column(db.String())
     company_name=db.Column(db.String())
     location=db.Column(db.String())
     description=db.Column(db.String())
-
     def __repr__(self):
         return f"Job:('{self.job_title}: {self.company_name}')"
 
@@ -98,8 +97,8 @@ def save_job():
         company_name = request.json.get('company_name')
         job_location = request.json.get('location')
         job_description = request.json.get('description')
-        saved_job = SavedJob(job_title=job_title,company_name=company_name, location=job_location, description=job_description)
-        db.session.add(saved_job)
+        savedjob = SavedJob(username=session['username'], job_title=job_title,company_name=company_name, location=job_location, description=job_description)
+        db.session.add(savedjob)
         db.session.commit()
         return jsonify(status="success")
         return render_template(('saved_jobs.html'), job_title=job_title, company_name=company_name, job_location=job_location, job_description=job_description)
@@ -192,6 +191,7 @@ def login():
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
+    db.create_all()
 
 '''# interchange use of API Keys to limit searches to not get 100
 API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',

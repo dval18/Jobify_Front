@@ -6,10 +6,9 @@ from job_search import db
 from job_search import User
 # print(User.query.all())
 engine = db.create_engine('sqlite:///jobify.db', {})
-query = engine.execute('SELECT * FROM user;').fetchall()
-
-
+query = engine.execute(f"SELECT * FROM saved_job;").fetchall()
 print(query)
+
 # print(engine.table_names())
 # query = engine.execute('.tables;').fetchall()
 #id_list = engine.execute(f"SELECT job_id FROM jobs WHERE user_id='joshua_feliciano';").fetchall()
