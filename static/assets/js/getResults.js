@@ -2,7 +2,8 @@ function getResults(job_id) {
   var title = document.getElementById("job_title_"+job_id).innerHTML;
   var c_name = document.getElementById("company_name_"+job_id).innerHTML;
   var job_location = document.getElementById("job_location_"+job_id).innerHTML;
-  var job_desciption = document.getElementById("job_description_"+job_id).innerHTML;;
+  var job_desciption = document.getElementById("job_description_"+job_id).innerHTML;
+  var job_id = job_id
   // console.log(title)
   // console.log(c_name)
   // console.log(job_location)
@@ -15,6 +16,7 @@ function getResults(job_id) {
        "company_name": c_name,
        "location": job_location,
        "description": job_desciption,
+       "job_id": job_id
     }),
     contentType: "application/json",
     dataType: 'json'

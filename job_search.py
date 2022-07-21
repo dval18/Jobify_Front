@@ -35,6 +35,14 @@ API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
 
 key_index = random.randint(0, 2)
 
+def print_links(job_id):
+            list_data = []
+            request = requests.get(f'https://serpapi.com/search.json?\
+            engine=google_jobs_listing&q={job_id}&api_key={API_KEYS[key_index]}')
+            link_data = request.json()["apply_options"]
+            list_data.append(link_data)
+            return list_data
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -89,7 +97,6 @@ class SavedJob(db.Model):
         return f"Job:('{self.job_title}: {self.company_name}')"
 
 @app.route("/saved_jobs", methods=('GET', 'POST'))
-@login_required
 def save_job():
     # print(request_data.get('job_title'))
     #get value from checkbox?
@@ -98,7 +105,9 @@ def save_job():
         company_name = request.json.get('company_name')
         job_location = request.json.get('location')
         job_description = request.json.get('description')
-        savedjob = SavedJob(username=session['username'], job_title=job_title,company_name=company_name, location=job_location, description=job_description)
+        job_id = request.json.get('job_id')
+        link_list = print_links(job_id)
+        savedjob = SavedJob(username=session['username'], job_title=job_title,company_name=company_name, location=job_location, description=job_description, links=link_list)
         db.session.add(savedjob)
         db.session.commit()
         return jsonify(status="success")
