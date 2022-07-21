@@ -16,10 +16,10 @@
     {%for job in data %}
     <tr>
       <th scope="row">{{loop.index}}</th>
-      <td class = "job_title">{{job['title']}}</td>
-      <td class = "company_name">{{job['company_name']}}</td>
-      <td class = "job_location">{{job['location']}}</td>
-      <td class = "job_description">{{job['description']}}</td>
+      <td id = "job_title">{{job['title']}}</td>
+      <td id = "company_name">{{job['company_name']}}</td>
+      <td id = "job_location">{{job['location']}}</td>
+      <td id = "job_description">{{job['description']}}</td>
       <td><input type="checkbox" name="job_save" value="job" onclick = "getResults();"></td>
 
     </tr>

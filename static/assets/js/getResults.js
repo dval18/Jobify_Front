@@ -1,8 +1,8 @@
 function getResults() {
-  var title = document.getElementsByClassName("job_title");
-  var c_name = document.getElementsByClassName("company_name");
-  var job_location = document.getElementsByClassName("job_location");
-  var job_desciption = document.getElementsByClassName("job_description");
+  var title = document.getElementById("job_title");
+  var c_name = document.getElementById("company_name");
+  var job_location = document.getElementById("job_location");
+  var job_desciption = document.getElementById("job_description");
 }
 
 var server_data = [
@@ -11,6 +11,7 @@ var server_data = [
   {"location": job_location},
   {"description": job_desciption},
 ];
+console.log("Success getResults")
 
 $.ajax({
   type: "POST",
@@ -19,3 +20,4 @@ $.ajax({
   contentType: "application/json",
   dataType: 'json' 
 });
+console.log("Success ajax")
