@@ -2,7 +2,7 @@ function getResults(job_id) {
   var title = document.getElementById("job_title_"+job_id).innerHTML;
   var c_name = document.getElementById("company_name_"+job_id).innerHTML;
   var job_location = document.getElementById("job_location_"+job_id).innerHTML;
-  var job_desciption = document.getElementById("job_description_"+job_id).innerHTML;;
+  var job_desciption = document.getElementById("job_description_"+job_id).innerHTML;
   // console.log(title)
   // console.log(c_name)
   // console.log(job_location)

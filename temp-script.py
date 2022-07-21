@@ -6,7 +6,7 @@ from job_search import db
 from job_search import User
 # print(User.query.all())
 engine = db.create_engine('sqlite:///jobify.db', {})
-query = engine.execute(f"SELECT * FROM saved_job;").fetchall()
+query = engine.execute(f"SELECT links FROM saved_job;").fetchall()
 print(query)
 
 
