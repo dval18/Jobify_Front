@@ -35,6 +35,14 @@ API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
 
 key_index = random.randint(0, 2)
 
+def print_links(job_id):
+            list_data = []
+            request = requests.get(f'https://serpapi.com/search.json?\
+            engine=google_jobs_listing&q={job_id}&api_key={API_KEYS[key_index]}')
+            link_data = request.json()["apply_options"]
+            list_data.append(link_data)
+            return list_data
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
