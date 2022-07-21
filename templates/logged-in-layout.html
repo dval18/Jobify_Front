@@ -1,0 +1,266 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<link rel="icon" href="{{ url_for('static', filename='/assets/img/logo/logo1.png') }}" />    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Jobify</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+		<!-- CSS here -->
+            <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="assets/css/flaticon.css">
+            <link rel="stylesheet" href="assets/css/price_rangs.css">
+            <link rel="stylesheet" href="assets/css/slicknav.css">
+            <link rel="stylesheet" href="assets/css/animate.min.css">
+            <link rel="stylesheet" href="assets/css/magnific-popup.css">
+            <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="assets/css/themify-icons.css">
+            <link rel="stylesheet" href="assets/css/slick.css">
+            <link rel="stylesheet" href="assets/css/nice-select.css">
+            <link rel="stylesheet" href="assets/css/style.css"> -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='owl.carousel.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flaticon.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='price_rangs.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slicknav.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='animate.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='magnific-popup.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fontawesome-all.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='themify-icons.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='slick.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nice-select.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+   </head>
+
+   <body>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{{ url_for('static', filename='/assets/img/logo/jobify.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+       <div class="header-area header-transparrent">
+           <div class="headder-top header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-2">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="/"><img src="{{ url_for('static', filename='assets/img/logo/jobify2.png') }}" alt=""></a>
+                            </div>  
+                        </div>
+                        <div class="col-lg-9 col-md-9">
+                            <div class="menu-wrapper">
+                                <!-- Main-menu -->
+                                <div class="main-menu">
+                                    <nav class="d-none d-lg-block">
+                                        <ul id="navigation">
+                                            <li><a href="{{ url_for('homepage') }}">Home</a></li>  <!-- make this the logged-in-home.html -->
+                                            <li><a href="{{ url_for('job_search') }}">Search Jobs</a></li>
+                                            <li><a href="{{ url_for('saved_jobs_page') }}">Saved Jobs</a></li>
+                                            <li><a href="{{ url_for('contact_page') }}">Contact</a></li>
+                                            <li><a href="{{ url_for('about_page') }}">About</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>          
+                                <!-- Header-btn -->
+                                <div>
+                                <div class="header-btn d-none f-right d-lg-block">
+                                    <ul id="navigation">
+                                    <li><a href="{{ url_for('homepage') }}"> </a>Currently logged in.</a></li>
+                                    <!-- <a href="{{ url_for('login') }}" class="btn head-btn2">Login</a> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+        <!-- Header End -->
+    </header>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    {% block content %}{% endblock content %}
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-bg footer-padding">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                       <div class="single-footer-caption mb-50">
+                         <div class="single-footer-caption mb-30">
+                             <div class="footer-tittle">
+                                 <h4>About Us</h4>
+                                 <div class="footer-pera">
+                                     <p>Just some guys trying to make it easier to find jobs</p>
+                                </div>
+                             </div>
+                         </div>
+
+                       </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Contact Info</h4>
+                                <ul>
+                                    <li>
+                                    <p>Address :55 Exchange Place, Floor 6
+                                    New York, New York 10005</p>
+                                    </li>
+                                    <li><a href="#">Phone : +1(678)-555-5555</a></li>
+                                    <li><a href="#">Email : info@jobify.com</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Important Links</h4>
+                                <ul>
+                                    <li><a href="https://github.com/dval18/Jobify_Front/tree/isaac"> View Project github</a></li>
+                                    <li><a href="{{ url_for('contact_page') }}">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Newsletter</h4>
+                                <div class="footer-pera footer-pera2">
+                                 <p>Be a part of Jobify's news!</p>
+                             </div>
+                             <!-- Form -->
+                             <div class="footer-form" >
+                                 <div id="mc_embed_signup">
+                                     <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                     method="get" class="subscribe_form relative mail_part">
+                                         <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
+                                         class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
+                                         onblur="this.placeholder = ' Email Address '">
+                                         <div class="form-icon">
+                                             <button type="submit" name="submit" id="newsletter-submit"
+                                             class="email_icon newsletter-submit button-contactForm"><img src="{{ url_for('static', filename='assets/img/icon/form.png') }}" alt=""></button>
+                                         </div>
+                                         <div class="mt-10 info"></div>
+                                     </form>
+                                 </div>
+                             </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <!--  -->
+               <div class="row footer-wejed justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                        <!-- logo -->
+                        <div class="footer-logo mb-20">
+                        <a href="home.html"><img src="{{ url_for('static', filename='assets/img/logo/jobify2.png') }}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                    <div class="footer-tittle-bottom">
+                        <span>5000+</span>
+                        <p>Jobs Found for users</p>
+                    </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                        <div class="footer-tittle-bottom">
+                            <span>451</span>
+                            <p>Active Developers</p>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+        <!-- footer-bottom area -->
+        <div class="footer-bottom-area footer-bg">
+            <div class="container">
+                <div class="footer-border">
+                     <div class="row d-flex justify-content-between align-items-center">
+                         <div class="col-xl-10 col-lg-10 ">
+                             <div class="footer-copy-right">
+                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                             </div>
+                         </div>
+                         <div class="col-xl-2 col-lg-2">
+                             <div class="footer-social f-right">
+                                 <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                 <a href="#"><i class="fab fa-twitter"></i></a>
+                                 <a href="#"><i class="fas fa-globe"></i></a>
+                                 <a href="#"><i class="fab fa-behance"></i></a>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+
+  <!-- JS here -->
+
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="{{ url_for('static', filename='assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.slicknav.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/slick.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/price_rangs.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/wow.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/animated.headline.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.magnific-popup.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.scrollUp.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.sticky.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/contact.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.form.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.validate.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/mail-script.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.ajaxchimp.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/plugins.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.woff2') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-solid-900.woff2') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.woff') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-solid-900.woff') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-solid-900.ttf') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.ttf') }}"></script>
+        <script src="{{ url_for('static', filename='assets/fonts/fa-brands-400.woff2') }}"></script>
+        <!-- importing images -->
+    </body>
+</html>
