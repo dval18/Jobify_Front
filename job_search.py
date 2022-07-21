@@ -76,7 +76,7 @@ def valid_login(username, password):
 
 def log_the_user_in(username):
     session['username'] = username
-    return render_template(('logged-in-home.html'), username=username)
+    return redirect(url_for('job_search'))
 
 class SavedJob(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -89,6 +89,7 @@ class SavedJob(db.Model):
         return f"Job:('{self.job_title}: {self.company_name}')"
 
 @app.route("/saved_jobs", methods=('GET', 'POST'))
+@login_required
 def save_job():
     # print(request_data.get('job_title'))
     #get value from checkbox?
@@ -143,6 +144,7 @@ def about_page():
     return render_template('about.html')
 
 @app.route("/saved-jobs")
+@login_required
 def saved_jobs_page():
     engine = db.create_engine('sqlite:///jobify.db', {})
     query = engine.execute(f"SELECT * FROM saved_job WHERE username = '{session['username']}';").fetchall()
