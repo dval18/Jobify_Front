@@ -1,7 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Job Title</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Location</th>
+      <th scope="col">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for i in range(5) %}
+    <tr>
+      <th scope="row">{{i}}</th>
+      <td>{{data[i]['title']}}</td>
+      <td>{{data[i]['company_name']}}</td>
+      <td>{{data[i]['location']}}</td>
+      <td>{{data[i]['description']}}</td>
+    </tr>
+    {%else%}
+    <h5> No jobs to display</h5>
+        
 
-    {%for job in data %}
+    {%endfor%}
+  </tbody>
+</table>
+    <!-- {%for job in data %}
             <h5>{{job['title']}}</h5>
             <h5>{{job['company_name']}}</h5>
             <h5>{{job['location']}}</h5>
@@ -11,7 +36,7 @@
     <h5> No jobs to display</h5>
         
 
-    {%endfor%}
+    {%endfor%} -->
 
     
 
