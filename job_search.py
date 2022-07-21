@@ -8,7 +8,7 @@ import pprint
 import pdb
 import sqlite3
 from sqlalchemy.types import String
-from flask import Flask, request, render_template, url_for, flash, redirect, g
+from flask import Flask, request, render_template, url_for, flash, redirect, g, jsonify
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
@@ -25,9 +25,10 @@ db = SQLAlchemy(app)
 
 # '''# interchange use of API Keys to limit searches to not get 100
 API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
-            '9e8e77e8075bf5f1bfbbef8848ba3b735d1cf01e0490877307eded9945e41777')
+            '9e8e77e8075bf5f1bfbbef8848ba3b735d1cf01e0490877307eded9945e41777',
+            'c385df59163477b88fa13574e0bb8886c32b687a8eb0b8dded75b959def7262b')
 
-key_index = random.randint(0, 1)
+key_index = random.randint(0, 2)
 
 class User(db.Model):
   try:
@@ -36,7 +37,6 @@ class User(db.Model):
         password = db.Column(db.String(60), nullable=False)
   except Exception as e:
         print('hi')
-        # render_template()
   def __repr__(self):
     return f"User('{self.username}')"
 
@@ -62,6 +62,39 @@ def valid_login(username, password):
 
 def log_the_user_in(username):
     return render_template(('logged-in-home.html'), username=username)
+
+# class SavedJob(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     job_title=db.Column(db.String())
+#     company_name=db.Column(db.String())
+#     location=db.Column(db.String())
+#     description=db.Column(db.String())
+#     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+# #     def __repr__(self):
+#         return f"Job:('{self.job_title}: {self.company_name}')"
+
+@app.route("/saved_jobs", methods=('GET', 'POST'))
+def save_job():
+    #get value from checkbox?
+    if request.method == 'POST':
+        qtc_data = request.get_json()
+        # for job in qtc_data:
+        print(qtc_data)
+        # return jsonify(status="success")
+
+        # return render_template(('saved_jobs.html'), data = qtc_data)
+    
+    # results = {'processed': 'true'}
+    # print(jsonify(results))
+ 
+#  results = {'processed': 'true'}
+#  return jsonify(results)
+#         saved_job = SavedJob(job_title=job_title,company_name=company_name, location=location, description=description)
+#         db.session.add(saved_job)
+#         db.session.commit()
+
+
 
 @app.route("/")
 def homepage():
@@ -89,7 +122,8 @@ def about_page():
 
 @app.route("/saved-jobs")
 def saved_jobs_page():
-    return render_template('saved-jobs.html')
+    jobs_saved = SavedJob.query.all()
+    return render_template('saved-jobs.html', jobs = jobs_saved)
 
 @app.route("/contact")
 def contact_page():

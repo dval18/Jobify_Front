@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -8,16 +9,19 @@
       <th scope="col">Company Name</th>
       <th scope="col">Location</th>
       <th scope="col">description</th>
+      <th scope="col">Save Job</th>
     </tr>
   </thead>
   <tbody>
-    {%for i in range(5) %}
+    {%for job in data %}
     <tr>
-      <th scope="row">{{i}}</th>
-      <td>{{data[i]['title']}}</td>
-      <td>{{data[i]['company_name']}}</td>
-      <td>{{data[i]['location']}}</td>
-      <td>{{data[i]['description']}}</td>
+      <th scope="row">{{loop.index}}</th>
+      <td class = "job_title">{{job['title']}}</td>
+      <td class = "company_name">{{job['company_name']}}</td>
+      <td class = "job_location">{{job['location']}}</td>
+      <td class = "job_description">{{job['description']}}</td>
+      <td><input type="checkbox" name="job_save" value="job" onclick = "getResults();"></td>
+
     </tr>
     {%else%}
     <h5> No jobs to display</h5>
@@ -26,18 +30,6 @@
     {%endfor%}
   </tbody>
 </table>
-    <!-- {%for job in data %}
-            <h5>{{job['title']}}</h5>
-            <h5>{{job['company_name']}}</h5>
-            <h5>{{job['location']}}</h5>
-            <h5>{{job['description']}}</h5>
-
-    {%else%}
-    <h5> No jobs to display</h5>
-        
-
-    {%endfor%} -->
-
-    
+   
 
 {%endblock%}
