@@ -185,11 +185,9 @@ def login():
         if valid_login(request.form['username'], request.form['password']):
             return log_the_user_in(request.form['username'])
         else:
-            error = ' '
-            flash(error,"error")
+            error = 'Invalid username/password'
+
     return render_template('login.html', error=error)
-
-
 
 
 if __name__ == '__main__':
