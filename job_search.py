@@ -35,13 +35,7 @@ API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
 
 key_index = random.randint(0, 2)
 
-def print_links(job_id):
-            list_data = []
-            request = requests.get(f'https://serpapi.com/search.json?\
-            engine=google_jobs_listing&q={job_id}&api_key={API_KEYS[key_index]}')
-            link_data = request.json()["apply_options"]
-            list_data.append(link_data)
-            return list_data
+
 
 def login_required(f):
     @wraps(f)
@@ -106,7 +100,6 @@ def save_job():
         job_location = request.json.get('location')
         job_description = request.json.get('description')
         savedjob = SavedJob(username=session['username'], job_title=job_title,company_name=company_name, location=job_location, description=job_description)
-        print(savedjob)
         db.session.add(savedjob)
         db.session.commit()
         # return jsonify(status="success")
@@ -274,7 +267,16 @@ def program_driver(user_name):
     else:
         search_api()
 
-
+def print_links(job_id):
+            list_data = []
+            request = requests.get(f'https://serpapi.com/search.json?\
+            engine=google_jobs_listing&q={job_id}&api_key={API_KEYS[key_index]}')
+            try:
+                link_data = request.json()["apply_options"]
+                list_data.append(link_data)
+            except KeyError as k:
+                return None
+            return list_data
 def search_api():
     job_fields = input("Enter comma-separated fields \
 in which you would like to search for jobs: ").strip()
