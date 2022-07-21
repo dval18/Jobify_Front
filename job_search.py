@@ -63,28 +63,33 @@ def valid_login(username, password):
 def log_the_user_in(username):
     return render_template(('logged-in-home.html'), username=username)
 
-# class SavedJob(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     job_title=db.Column(db.String())
-#     company_name=db.Column(db.String())
-#     location=db.Column(db.String())
-#     description=db.Column(db.String())
-#     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+class SavedJob(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    #username = db.Column(db.Integer, db.ForeignKey('User.username'))
+    job_title=db.Column(db.String())
+    company_name=db.Column(db.String())
+    location=db.Column(db.String())
+    description=db.Column(db.String())
 
-# #     def __repr__(self):
-#         return f"Job:('{self.job_title}: {self.company_name}')"
+    def __repr__(self):
+        return f"Job:('{self.job_title}: {self.company_name}')"
 
 @app.route("/saved_jobs", methods=('GET', 'POST'))
 def save_job():
+    # print(request_data.get('job_title'))
     #get value from checkbox?
     if request.method == 'POST':
-        qtc_data = request.get_json()
-        # for job in qtc_data:
-        print(qtc_data)
-        # return jsonify(status="success")
+        job_title = request.json.get('job_title')
+        company_name = request.json.get('company_name')
+        job_location = request.json.get('location')
+        job_description = request.json.get('description')
+        saved_job = SavedJob(job_title=job_title,company_name=company_name, location=job_location, description=job_description)
+        db.session.add(saved_job)
+        db.session.commit()
+        return jsonify(status="success")
+        return render_template(('saved_jobs.html'), job_title=job_title, company_name=company_name, job_location=job_location, job_description=job_description)
+        
 
-        # return render_template(('saved_jobs.html'), data = qtc_data)
-    
     # results = {'processed': 'true'}
     # print(jsonify(results))
  
@@ -132,9 +137,9 @@ def contact_page():
 @app.route('/register', methods=('GET', 'POST'))
 def register_form():
     form = RegistrationForm()
-    print('isaac')
-    print(form.username)
-    print(form.validate())
+    # print('isaac')
+    # print(form.username)
+    # print(form.validate())
     if form.validate_on_submit() and request.method == 'POST':
         print('hello', form)
         try:
