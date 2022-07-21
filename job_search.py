@@ -105,13 +105,12 @@ def save_job():
         company_name = request.json.get('company_name')
         job_location = request.json.get('location')
         job_description = request.json.get('description')
-        job_id = request.json.get('job_id')
-        link_list = print_links(job_id)
-        savedjob = SavedJob(username=session['username'], job_title=job_title,company_name=company_name, location=job_location, description=job_description, links=link_list)
+        savedjob = SavedJob(username=session['username'], job_title=job_title,company_name=company_name, location=job_location, description=job_description)
+        print(savedjob)
         db.session.add(savedjob)
         db.session.commit()
-        return jsonify(status="success")
-        return render_template(('saved_jobs.html'), job_title=job_title, company_name=company_name, job_location=job_location, job_description=job_description)
+        # return jsonify(status="success")
+        # return render_template(('saved_jobs.html'), job_title=job_title, company_name=company_name, job_location=job_location, job_description=job_description)
         
 
     # results = {'processed': 'true'}
@@ -133,12 +132,15 @@ def homepage():
 @login_required
 def job_search():
     if request.method == 'POST':
-        job_fields = request.form['fields']
-        job_location = request.form['location']
-        #parse info from form into api to get request
-        r = requests.get(f'https://serpapi.com/search.json?engine=google_jobs&q={job_fields}&location={job_location}&api_key={API_KEYS[key_index]}')
-        data = r.json()['jobs_results']
-        return render_template('jobs_list.html', data = data)
+        try:
+            job_fields = request.form['fields']
+            job_location = request.form['location']
+            #parse info from form into api to get request
+            r = requests.get(f'https://serpapi.com/search.json?engine=google_jobs&q={job_fields}&location={job_location}&api_key={API_KEYS[key_index]}')
+            data = r.json()['jobs_results']
+            return render_template('jobs_list.html', data = data)
+        except KeyError:
+            return render_template('error.html')
     return render_template('job_search.html')
 
 @app.route("/jobs_list")
