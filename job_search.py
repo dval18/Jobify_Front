@@ -7,8 +7,10 @@ import json
 import pprint
 import pdb
 import sqlite3
+from functools import wraps
 from sqlalchemy.types import String
-from flask import Flask, request, render_template, url_for, flash, redirect, g, jsonify
+from flask import Flask, request, render_template, url_for, flash, redirect, g, jsonify, session
+from flask_session import Session
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
@@ -21,7 +23,10 @@ proxied = FlaskBehindProxy(app)
 
 app.config['SECRET_KEY'] = 'f8ab5567ef84a9ee5c1e3d86bb8b9ef9'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///jobify.db'
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 db = SQLAlchemy(app)
+Session(app)
 
 # '''# interchange use of API Keys to limit searches to not get 100
 API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
@@ -29,6 +34,15 @@ API_KEYS = ('e21193f2b2ee7a0a7042c7a414822b20b10c84609c42a408732401d8b62ddc06',
             'c385df59163477b88fa13574e0bb8886c32b687a8eb0b8dded75b959def7262b')
 
 key_index = random.randint(0, 2)
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("username") is None:
+            flash("Error: Need to be logged in to access.", 'error')
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
 
 class User(db.Model):
   try:
@@ -38,7 +52,7 @@ class User(db.Model):
   except Exception as e:
         print('hi')
   def __repr__(self):
-    return f"User('{self.username}')"
+    return f"User('{self.username}', '{self.id}')"
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -61,6 +75,7 @@ def valid_login(username, password):
 
 
 def log_the_user_in(username):
+    session['username'] = username
     return render_template(('logged-in-home.html'), username=username)
 
 class SavedJob(db.Model):
@@ -106,6 +121,7 @@ def homepage():
     return render_template('home.html')
 
 @app.route("/job_search", methods=('GET', 'POST'))
+@login_required
 def job_search():
     if request.method == 'POST':
         job_fields = request.form['fields']
@@ -117,11 +133,13 @@ def job_search():
     return render_template('job_search.html')
 
 @app.route("/jobs_list")
+@login_required
 def jobs_list():
     return render_template('jobs_list.html')
 
 
 @app.route("/about")
+@login_required
 def about_page():
     return render_template('about.html')
 
@@ -137,16 +155,15 @@ def contact_page():
 @app.route('/register', methods=('GET', 'POST'))
 def register_form():
     form = RegistrationForm()
-    # print('isaac')
-    # print(form.username)
-    # print(form.validate())
     if form.validate_on_submit() and request.method == 'POST':
-        print('hello', form)
         try:
             user = User(username=form.username.data, password=form.password.data)
-            print(user)
+            # engine = db.create_engine('sqlite:///jobify.db', {})
+            # id = engine.execute("INSERT INTO user (username, password) VALUES(?, ?)", form.username.data, form.password.data)
+            # print(id)
             db.session.add(user)
             db.session.commit()
+            session['username'] = user.username
         except exc.SQLAlchemyError as e:
             error = str(e.__dict__['orig'])
             if 'UNIQUE' in error:
@@ -162,6 +179,8 @@ def register_form():
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     error = None
+    session.clear()
+    print(session)
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
             return log_the_user_in(request.form['username'])
@@ -170,7 +189,7 @@ def login():
             flash(error,"error")
     return render_template('login.html', error=error)
 
-    
+
 
 
 if __name__ == '__main__':
