@@ -144,8 +144,10 @@ def about_page():
 
 @app.route("/saved-jobs")
 def saved_jobs_page():
-    jobs_saved = SavedJob.query.all()
-    return render_template('saved-jobs.html', jobs = jobs_saved)
+    engine = db.create_engine('sqlite:///jobify.db', {})
+    query = engine.execute(f"SELECT * FROM saved_job WHERE username = '{session['username']}';").fetchall()
+    # jobs_saved = saved_job.query.all()
+    return render_template('saved-jobs.html', jobs = query)
 
 @app.route("/contact")
 def contact_page():
