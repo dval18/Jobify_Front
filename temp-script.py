@@ -8,6 +8,9 @@ from job_search import User
 engine = db.create_engine('sqlite:///jobify.db', {})
 query = engine.execute(f"SELECT * FROM saved_job;").fetchall()
 print(query)
+# <<<<<<< HEAD
+# print(engine.table_names())
+# =======
 
 # print(engine.table_names())
 # query = engine.execute('.tables;').fetchall()
