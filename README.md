@@ -24,5 +24,5 @@ ________________
 
 
 ___________
-Authors: Isaac Gil, Josh Feliciano
+Authors: Isaac Gil, Josh Feliciano, Diego Valdes, Lemson Mureya
 
